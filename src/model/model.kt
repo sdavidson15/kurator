@@ -11,16 +11,16 @@ class User(_uuid: UUID = UUID.randomUUID(), _pieces: MutableMap<UUID, Piece> = m
     var pieces: MutableMap<UUID, Piece> = _pieces
 }
 
-class Piece(_uuid: UUID = UUID.randomUUID(), _artist: Artist = Artist(), _createdDate: Instant = Instant.now(),
+class Piece(_userID: UUID = UUID.randomUUID(), _artist: Artist = Artist(), _createdDate: Instant = Instant.now(),
             _viewedDate: Instant = Instant.now(), _genre: Genre = Genre.Default, _createdLoc: Location = Location(),
             _viewedLoc: Location = Location(), _notes: String = "") {
 
-    val uuid: UUID = _uuid
+    val userID: UUID = _userID
     val artist: Artist = _artist
     val genre: Genre = _genre
     val createdDate: Instant = _createdDate
     val viewedDate: Instant = _viewedDate
-    val paintedLoc: Location = _createdLoc
+    val createdLoc: Location = _createdLoc
     val viewedLoc: Location = _viewedLoc
     var notes: String = _notes
 }
@@ -38,7 +38,8 @@ class Artist(_uuid: UUID = UUID.randomUUID(), _name: String = "", _dob: Instant 
     val isAlive: Boolean = _isAlive
 }
 
-class Location(_name: String = "", _lat: Double = 0.0, _lon: Double = 0.0) {
+class Location(_uuid: UUID = UUID.randomUUID(), _name: String = "", _lat: Double = 0.0, _lon: Double = 0.0) {
+    val uuid: UUID = _uuid
     val name: String = _name
     val lat: Double = _lat
     val lon: Double = _lon
