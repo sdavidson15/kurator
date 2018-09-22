@@ -11,10 +11,12 @@ class User(_uuid: UUID = UUID.randomUUID(), _pieces: MutableMap<UUID, Piece> = m
     var pieces: MutableMap<UUID, Piece> = _pieces
 }
 
-class Piece(_userID: UUID = UUID.randomUUID(), _artist: Artist = Artist(), _createdDate: Instant = Instant.now(),
-            _viewedDate: Instant = Instant.now(), _genre: Genre = Genre.Default, _createdLoc: Location = Location(),
-            _viewedLoc: Location = Location(), _notes: String = "") {
+class Piece(_uuid: UUID = UUID.randomUUID(), _userID: UUID = UUID.randomUUID(), _artist: Artist = Artist(),
+            _createdDate: Instant = Instant.now(), _viewedDate: Instant = Instant.now(), _genre: Genre = Genre.Default,
+            _createdLoc: Location = Location(), _viewedLoc: Location = Location(), _origImg: Image = Image(),
+            _loadedImg: Image = Image(), _notes: String = "") {
 
+    val uuid: UUID = _uuid
     val userID: UUID = _userID
     val artist: Artist = _artist
     val genre: Genre = _genre
@@ -22,6 +24,8 @@ class Piece(_userID: UUID = UUID.randomUUID(), _artist: Artist = Artist(), _crea
     val viewedDate: Instant = _viewedDate
     val createdLoc: Location = _createdLoc
     val viewedLoc: Location = _viewedLoc
+    val origImg: Image = _origImg
+    val loadedImg: Image =_loadedImg
     var notes: String = _notes
 }
 
@@ -43,6 +47,14 @@ class Location(_uuid: UUID = UUID.randomUUID(), _name: String = "", _lat: Double
     val name: String = _name
     val lat: Double = _lat
     val lon: Double = _lon
+}
+class Image(_pieceID: UUID = UUID.randomUUID(), _source: String = "", _filename: String = "",
+            _bytes: ByteArray = ByteArray(8192)) {
+
+    val pieceID: UUID = _pieceID
+    val source: String = _source
+    val filename: String = _filename
+    val bytes: ByteArray = _bytes
 }
 
 enum class Genre {

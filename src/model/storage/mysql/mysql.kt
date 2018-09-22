@@ -5,6 +5,8 @@ object Constraints {
     const val MAX_ARTIST_NAME_LENGTH = 32
     const val MAX_NATIONALITY_LENGTH = 32
     const val MAX_LOCATION_NAME = 150
+    const val MAX_IMAGE_SOURCE_LENGTH = 150
+    const val MAX_IMAGE_FILENAME_LENGTH = 32
 }
 
 
@@ -18,11 +20,15 @@ object Table {
             Constraints.MAX_NATIONALITY_LENGTH + "), Genre INT, IsAlive BIT, PRIMARY KEY(ID));"
     const val CREATE_LOC_TABLE = "CREATE TABLE IF NOT EXISTS Location (ID CHAR(36), Name VARCHAR(" +
             Constraints.MAX_LOCATION_NAME + "), Lat DOUBLE PRECISION, Lon DOUBLE PRECISION, PRIMARY KEY(ID));"
+    const val CREATE_IMAGE_TABLE = "CREATE TABLE IF NOT EXISTS Image (PieceID CHAR(36), Source VARCHAR(" +
+            Constraints.MAX_IMAGE_SOURCE_LENGTH + "), Filename VARCHAR(" +
+            Constraints.MAX_IMAGE_FILENAME_LENGTH + "), Bytes MEDIUMBLOB, PRIMARY KEY(PieceID,Source));"
 
     const val DROP_USER_TABLE = "DROP TABLE User;"
     const val DROP_PIECE_TABLE = "DROP TABLE Piece;"
     const val DROP_ARTIST_TABLE = "DROP TABLE Artist;"
     const val DROP_LOC_TABLE = "DROP TABLE Location;"
+    const val DROP_IMAGE_TABLE = "DROP TABLE Image;"
 }
 
 object Queries {
@@ -49,6 +55,8 @@ object Queries {
     const val GET_ARTISTS_BY_GENRE = "SELECT * FROM Artist ORDER BY Genre ASC;"
 
     const val GET_LOC_NAME = "SELECT Name FROM Location WHERE ID = ?;"
+
+    const val GET_PIECE_IMAGE = "SELECT * FROM Image WHERE PieceID = ? AND Source = ?;"
 }
 
 object Mutations {
@@ -65,4 +73,7 @@ object Mutations {
 
     const val ADD_LOC = "INSERT INTO Location (ID,Name,Lat,Lon) VALUES (?,?,?,?);"
     const val REMOVE_LOC = "DELETE FROM Location WHERE ID = ?;"
+
+    const val ADD_IMAGE = "INSERT INTO Image (PieceID,Source,Filename,Bytes) VALUES (?,?,?,?);"
+    const val REMOVE_IMAGE = "DELETE FROM Image WHERE PieceID = ? AND Source = ?;"
 }
